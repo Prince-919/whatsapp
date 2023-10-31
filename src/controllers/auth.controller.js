@@ -31,7 +31,6 @@ export const register = async (req, res, next) => {
       path: "/api/v1/auth/refreshtoken",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
-    console.table({ access_token, refresh_token });
 
     res.json({
       message: "Register successfully",
@@ -42,6 +41,7 @@ export const register = async (req, res, next) => {
         email: newUser.email,
         picture: newUser.picture,
         status: newUser.status,
+        access_token,
       },
     });
   } catch (error) {
@@ -71,7 +71,6 @@ export const login = async (req, res, next) => {
       path: "/api/v1/auth/refreshtoken",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
-    console.table({ access_token, refresh_token });
 
     res.json({
       message: "Login successfully",
@@ -82,6 +81,7 @@ export const login = async (req, res, next) => {
         email: user.email,
         picture: user.picture,
         status: user.status,
+        access_token,
       },
     });
   } catch (error) {
@@ -119,13 +119,13 @@ export const refreshToken = async (req, res, next) => {
       process.env.ACCESS_TOKEN_SECRET
     );
     res.json({
-      access_token,
       user: {
         _id: user._id,
         name: user.name,
         email: user.email,
         picture: user.picture,
         status: user.status,
+        access_token,
       },
     });
     res.json(check);
